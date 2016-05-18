@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  gather_facts: yes
+  roles:
+    - nfs
+    - packer-debian
+    - elixir
+    - postgresql
+    - nodejs
+  tasks:
+    - apt: "name={{ item }} state=installed"
+      with_items:
+        - git
+        - wget
+        - curl
+        - vim
+
+    - name: set postgres password
+      postgresql_user: user=postgres password=postgres
+  vars:
+    postgresql_version: 9.4
+    nodejs_version: 5.x
+

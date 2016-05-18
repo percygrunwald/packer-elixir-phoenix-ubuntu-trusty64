@@ -1,0 +1,23 @@
+---
+- name: add erlang solutions public key
+  apt_key:
+    url: "{{ elixir_erlang_solutions_key_url }}"
+    state: present
+
+- name: add erlang solutions apt repo
+  apt_repository:
+    repo: "{{ elixir_erlang_solutions_apt_repo_url }}"
+    state: present
+
+- name: install erlang package
+  apt:
+    name: erlang
+    state: "{{ elixir_erlang_package_state }}"
+    update_cache: true
+
+- name: install additional packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - make

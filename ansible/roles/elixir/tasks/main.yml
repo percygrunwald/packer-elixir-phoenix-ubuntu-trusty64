@@ -1,0 +1,42 @@
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: ensure elixir directory exists
+  file:
+    path: "{{ elixir_install_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: download and untar elixir tarball
+  unarchive:
+    src: "{{ elixir_source_tarball_url }}"
+    dest: "{{ elixir_install_path }}"
+    copy: no
+
+- name: make and make install elixir
+  shell: cd "{{ elixir_work_path }}" && make && make install
+
+- name: add symlinks for elixir binaries in /usr/bin
+  file:
+    src: "/usr/local/bin/{{ item }}"
+    dest: "/usr/bin/{{ item }}"
+    state: link
+  with_items:
+    - iex
+    - mix
+    - elixir
+    - elixirc
+
+- name: install hex and rebar
+  command: "mix {{ item }} --force"
+  with_items:
+    - local.hex
+    - local.rebar
+
+- name: install phoenix
+  command: "mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez"

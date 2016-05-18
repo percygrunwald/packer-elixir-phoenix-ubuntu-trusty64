@@ -1,0 +1,161 @@
+{
+  "variables": {
+    "box_version": "0.1.0",
+    "box_description": "PostgreSQL admin user/pass: postgres/postgres. Includes Erlang, Elixir, Phoenix, PostgreSQL 9.4 and Node.js 5.x.",
+    "vm_name": "elixir-phoenix-ubuntu-1404-trusty-x86_64",
+    "atlas_artifact": "pgrunwald/elixir-phoenix-ubuntu-trusty64"
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/setup.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/ansible.sh"
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/main.yml",
+      "role_paths": [
+        "ansible/roles/elixir",
+        "ansible/roles/nfs",
+        "ansible/roles/nodejs",
+        "ansible/roles/packer-debian",
+        "ansible/roles/postgresql"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/cleanup.sh"
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/install/vmlinuz",
+        " auto=true",
+        " priority=critical",
+        " initrd=/install/initrd.gz",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " -- ",
+        "<enter>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 8192,
+      "guest_os_type": "Ubuntu_64",
+      "headless": true,
+      "http_directory": "http",
+      "iso_urls": [
+        "iso/ubuntu-14.04.4-server-amd64.iso",
+        "http://releases.ubuntu.com/14.04/ubuntu-14.04.4-server-amd64.iso"
+      ],
+      "iso_checksum_type": "md5",
+      "iso_checksum": "2ac1f3e0de626e54d05065d6f549fa3a",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `vm_name` }}",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ]
+    },
+    {
+      "type": "vmware-iso",
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/install/vmlinuz",
+        " auto=true",
+        " priority=critical",
+        " initrd=/install/initrd.gz",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+        " -- ",
+        "<enter>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 8192,
+      "guest_os_type": "ubuntu-64",
+      "headless": true,
+      "http_directory": "http",
+      "iso_urls": [
+        "iso/ubuntu-14.04.4-server-amd64.iso",
+        "http://releases.ubuntu.com/14.04/ubuntu-14.04.4-server-amd64.iso"
+      ],
+      "iso_checksum_type": "md5",
+      "iso_checksum": "2ac1f3e0de626e54d05065d6f549fa3a",
+      "output_directory": "packer-ubuntu-14.04-amd64-vmware",
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "tools_upload_flavor": "linux",
+      "vm_name": "{{ user `vm_name` }}",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "2048",
+        "numvcpus": "1"
+      }
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "vagrant",
+        "keep_input_artifact": false
+      },
+      {
+        "type": "atlas",
+        "only": [
+          "virtualbox-iso"
+        ],
+        "artifact": "{{ user `atlas_artifact` }}",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "virtualbox",
+          "created_at": "{{ timestamp }}",
+          "version": "{{ user `box_version` }}",
+          "description": "{{ user `box_description` }}"
+        }
+      },
+      {
+        "type": "atlas",
+        "only": [
+          "vmware-iso"
+        ],
+        "artifact": "{{ user `atlas_artifact` }}",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "vmware_desktop",
+          "created_at": "{{ timestamp }}",
+          "version": "{{ user `box_version` }}",
+          "description": "{{ user `box_description` }}"
+        }
+      }
+    ]
+  ]
+}

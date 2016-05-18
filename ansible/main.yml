@@ -9,6 +9,7 @@
     - postgresql
     - nodejs
     - git
+    - inotify-tools
   tasks:
     - apt: "name={{ item }} state=installed"
       with_items:

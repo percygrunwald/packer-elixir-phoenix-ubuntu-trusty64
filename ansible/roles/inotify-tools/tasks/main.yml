@@ -1,0 +1,12 @@
+---
+- name: install epel-release
+  yum: pkg=epel-release state=present
+  when: ansible_os_family == 'RedHat'
+
+- name: install inotify-tools
+  yum: pkg=inotify-tools state=present update_cache=yes
+  when: ansible_os_family == 'RedHat'
+
+- name: install inotify-tools
+  apt: pkg=inotify-tools state=present update_cache=yes
+  when: ansible_os_family == 'Debian'

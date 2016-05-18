@@ -4,6 +4,7 @@
   service:
     name: "{{ postgresql_service_name }}"
     state: started
+    enabled: yes
 
 - name: PostgreSQL | Make sure the PostgreSQL users are present
   postgresql_user:

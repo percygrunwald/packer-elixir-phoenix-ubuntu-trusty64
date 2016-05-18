@@ -48,7 +48,7 @@
         " -- ",
         "<enter>"
       ],
-      "boot_wait": "60s",
+      "boot_wait": "10s",
       "disk_size": 8192,
       "guest_os_type": "Ubuntu_64",
       "headless": true,
@@ -96,7 +96,7 @@
         " -- ",
         "<enter>"
       ],
-      "boot_wait": "60s",
+      "boot_wait": "10s",
       "disk_size": 8192,
       "guest_os_type": "ubuntu-64",
       "headless": true,

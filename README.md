@@ -2,7 +2,7 @@
 
 Creates virtualbox and vmware boxes for Elixir and Phoenix development based on Ubuntu 14.04 (trusty).
 
-Based on Jeff Geerling's [packer-centos-ubuntu-1404](https://github.com/geerlingguy/packer-ubuntu-1404). 
+Based on Jeff Geerling's [packer-ubuntu-1404](https://github.com/geerlingguy/packer-ubuntu-1404). 
 
 **Current Ubuntu Version Used**: 14.04.4 
 

@@ -1,7 +1,7 @@
 {
   "variables": {
     "box_version": "0.3.0",
-    "box_description": "PostgreSQL admin user/pass: postgres/postgres.\n\nIncludes Erlang 18.3, Elixir 1.2.4, PostgreSQL 9.4.8 and Node.js 5.11.1.\n\nThis box is set up to do live reloading with [vagrant-fsnotify](https://github.com/adrienkohlbecker/vagrant-fsnotify) (inotify-tools installed).",
+    "box_description": "PostgreSQL admin user/pass: postgres/postgres.\n\nIncludes Erlang 18.3, Elixir 1.2.4, PostgreSQL 9.4.8, Node.js 5.11.1 and Git.\n\nThis box is set up to do live reloading with [vagrant-fsnotify](https://github.com/adrienkohlbecker/vagrant-fsnotify) (inotify-tools installed).",
     "vm_name": "elixir-phoenix-ubuntu-1404-trusty-x86_64",
     "atlas_artifact": "pgrunwald/elixir-phoenix-ubuntu-trusty64"
   },

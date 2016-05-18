@@ -24,7 +24,8 @@
         "ansible/roles/nfs",
         "ansible/roles/nodejs",
         "ansible/roles/packer-debian",
-        "ansible/roles/postgresql"
+        "ansible/roles/postgresql",
+        "ansible/roles/git"
       ]
     },
     {

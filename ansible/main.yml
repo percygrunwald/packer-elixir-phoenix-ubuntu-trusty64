@@ -8,6 +8,7 @@
     - elixir
     - postgresql
     - nodejs
+    - git
   tasks:
     - apt: "name={{ item }} state=installed"
       with_items:

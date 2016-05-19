@@ -39,4 +39,4 @@
     - local.rebar
 
 - name: install phoenix
-  command: "mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez"
+  shell: "yes | mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez"

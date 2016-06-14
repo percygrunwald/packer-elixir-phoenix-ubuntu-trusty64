@@ -3,7 +3,7 @@ ansible_become: true
 elixir_erlang_solutions_key_url: "http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc"
 elixir_erlang_solutions_apt_repo_url: "deb http://packages.erlang-solutions.com/ubuntu {{ ansible_distribution_release }} contrib"
 elixir_erlang_package_state: present
-elixir_version: 1.2.5
+elixir_version: 1.2.6
 elixir_source_tarball_url: "https://github.com/elixir-lang/elixir/archive/v{{ elixir_version }}.tar.gz"
 elixir_install_path: /opt/elixir
 elixir_work_path: "{{ elixir_install_path }}/elixir-{{ elixir_version }}"

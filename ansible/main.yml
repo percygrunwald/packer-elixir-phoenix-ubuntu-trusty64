@@ -21,7 +21,7 @@
     - name: set postgres password
       postgresql_user: user=postgres password=postgres
   vars:
-    elixir_version: 1.2.6
+    elixir_version: 1.3.0
     elixir_phoenix_user: vagrant
     postgresql_version: 9.4
     nodejs_version: 5.x

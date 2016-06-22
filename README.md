@@ -10,8 +10,8 @@ Based on Jeff Geerling's [packer-ubuntu-1404](https://github.com/geerlingguy/pac
 
 All the software required for Phoenix development.
 
-* Erlang 18.2
-* Elixir 1.2.3
+* Erlang 18.3
+* Elixir 1.3.0
     * Hex
     * Rebar 
     * Phoenix

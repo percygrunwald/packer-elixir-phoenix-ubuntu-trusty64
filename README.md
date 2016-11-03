@@ -11,10 +11,10 @@ Based on Jeff Geerling's [packer-ubuntu-1404](https://github.com/geerlingguy/pac
 All the software required for Phoenix development.
 
 * Erlang 19.0
-* Elixir 1.3.2
-    * Hex
-    * Rebar 
-    * Phoenix
+* Elixir 1.3.4
+    * Hex (latest)
+    * Rebar (latest)
+    * Phoenix (latest)
 * PostgreSQL 9.4 (user: postgres, password: postgres)
 * Node.js 5.x
 
